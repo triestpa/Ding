@@ -18,12 +18,15 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.facebook.rebound.SimpleSpringListener;
 import com.facebook.rebound.Spring;
 import com.facebook.rebound.SpringConfig;
 import com.facebook.rebound.SpringSystem;
+import com.parse.ParseInstallation;
 import com.parse.ParsePush;
+import com.parse.PushService;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -53,6 +56,9 @@ public class MainActivity extends ActionBarActivity {
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
+
+		ParseInstallation.getCurrentInstallation().saveInBackground();
+		PushService.subscribe(this, "Patrick", MainActivity.class);
 
 	}
 
@@ -112,6 +118,9 @@ public class MainActivity extends ActionBarActivity {
 		Spring mSpring;
 		ImageView profPic;
 
+		long lastDing = 0;
+		long currentTime;
+
 		private static final String ARG_SECTION_NUMBER = "section_number";
 
 		public static PictureFragment newInstance(int sectionNumber) {
@@ -132,7 +141,7 @@ public class MainActivity extends ActionBarActivity {
 			int section = getArguments().getInt(ARG_SECTION_NUMBER);
 
 			profPic = (ImageView) rootView.findViewById(R.id.picture);
-			
+
 			int currentapiVersion = android.os.Build.VERSION.SDK_INT;
 			if (currentapiVersion >= Build.VERSION_CODES.HONEYCOMB) {
 				profPic.setOnTouchListener(new OnTouchListener() {
@@ -142,12 +151,20 @@ public class MainActivity extends ActionBarActivity {
 						if (event.getAction() == MotionEvent.ACTION_DOWN) {
 							mSpring.setEndValue(.5);
 						} else if (event.getAction() == MotionEvent.ACTION_UP) {
-							ParsePush push = new ParsePush();
-							push.setChannel("Patrick");
-							push.setMessage("Ding!");
-							push.sendInBackground();
-							
+							currentTime = System.currentTimeMillis();
+							if (lastDing == 0 || (lastDing + 60000) < currentTime) {
+								ParsePush push = new ParsePush();
+								push.setChannel("Patrick");
+								push.setMessage("Ding!");
+								push.sendInBackground();
+								lastDing = currentTime;
+
+							} else {
+								Toast.makeText(getActivity(), "Wait a minute please",
+										Toast.LENGTH_SHORT).show();
+							}
 							mSpring.setEndValue(1);
+
 						}
 						return true;
 					}
