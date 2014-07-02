@@ -20,7 +20,7 @@
         android:name="com.triestpa.ding.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.parse.tutorials.pushnotifications.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.triestpa.ding.permission.C2D_MESSAGE" />
 
     <application
         android:name="com.triestpa.ding.DingApp"

@@ -58,7 +58,9 @@ public class MainActivity extends ActionBarActivity {
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
 		ParseInstallation.getCurrentInstallation().saveInBackground();
-		PushService.subscribe(this, "Patrick", MainActivity.class);
+		
+		//Only for me, for now
+		//PushService.subscribe(this, "Patrick", MainActivity.class);
 
 	}
 
