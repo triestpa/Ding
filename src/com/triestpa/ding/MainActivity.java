@@ -2,6 +2,8 @@ package com.triestpa.ding;
 
 import java.util.Locale;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,9 +13,17 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnTouchListener;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.facebook.rebound.SimpleSpringListener;
+import com.facebook.rebound.Spring;
+import com.facebook.rebound.SpringConfig;
+import com.facebook.rebound.SpringSystem;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -103,6 +113,8 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	public static class PictureFragment extends Fragment {
+		Spring mSpring;
+		ImageView profPic;
 
 		private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -123,7 +135,45 @@ public class MainActivity extends ActionBarActivity {
 			View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 			TextView textView = (TextView) rootView.findViewById(R.id.section_label);
 			textView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
+
+			profPic = (ImageView) rootView.findViewById(R.id.picture);
+			
+			int currentapiVersion = android.os.Build.VERSION.SDK_INT;
+			if (currentapiVersion >= Build.VERSION_CODES.HONEYCOMB) {
+				profPic.setOnTouchListener(new OnTouchListener() {
+
+					@Override
+					public boolean onTouch(View v, MotionEvent event) {
+						if (event.getAction() == MotionEvent.ACTION_DOWN) {
+							mSpring.setEndValue(.5);
+						} else if (event.getAction() == MotionEvent.ACTION_UP) {
+							mSpring.setEndValue(1);
+						}
+						return true;
+					}
+				});
+
+				springInit();
+			}
 			return rootView;
+		}
+
+		public void springInit() {
+			SpringSystem springSystem = SpringSystem.create();
+			mSpring = springSystem.createSpring();
+			mSpring.setCurrentValue(1);
+			mSpring.setSpringConfig(new SpringConfig(200, 6));
+			mSpring.addListener(new SimpleSpringListener() {
+				@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+				@Override
+				public void onSpringUpdate(Spring spring) {
+					float value = (float) spring.getCurrentValue();
+					float scale = .5f + (value * .5f);
+
+					profPic.setScaleX(scale);
+					profPic.setScaleY(scale);
+				}
+			});
 		}
 	}
 
