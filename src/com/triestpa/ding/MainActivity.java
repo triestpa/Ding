@@ -15,15 +15,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.facebook.rebound.SimpleSpringListener;
 import com.facebook.rebound.Spring;
 import com.facebook.rebound.SpringConfig;
 import com.facebook.rebound.SpringSystem;
+import com.parse.ParsePush;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -70,9 +70,7 @@ public class MainActivity extends ActionBarActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
+
 		return super.onOptionsItemSelected(item);
 	}
 
@@ -96,7 +94,7 @@ public class MainActivity extends ActionBarActivity {
 		@Override
 		public int getCount() {
 			// Show 3 total pages.
-			return 2;
+			return 1;
 		}
 
 		@Override
@@ -105,8 +103,6 @@ public class MainActivity extends ActionBarActivity {
 			switch (position) {
 			case 0:
 				return getString(R.string.title_section1).toUpperCase(l);
-			case 1:
-				return getString(R.string.title_section2).toUpperCase(l);
 			}
 			return null;
 		}
@@ -133,8 +129,7 @@ public class MainActivity extends ActionBarActivity {
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-			TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-			textView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
+			int section = getArguments().getInt(ARG_SECTION_NUMBER);
 
 			profPic = (ImageView) rootView.findViewById(R.id.picture);
 			
@@ -147,6 +142,11 @@ public class MainActivity extends ActionBarActivity {
 						if (event.getAction() == MotionEvent.ACTION_DOWN) {
 							mSpring.setEndValue(.5);
 						} else if (event.getAction() == MotionEvent.ACTION_UP) {
+							ParsePush push = new ParsePush();
+							push.setChannel("Patrick");
+							push.setMessage("Ding!");
+							push.sendInBackground();
+							
 							mSpring.setEndValue(1);
 						}
 						return true;

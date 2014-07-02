@@ -858,7 +858,34 @@ containing a value of this type.
         public static final int abc_split_action_bar_is_narrow=0x7f060002;
     }
     public static final class color {
-        public static final int abc_search_url_text_holo=0x7f070003;
+        public static final int Black=0x7f070017;
+        public static final int Blue=0x7f070014;
+        public static final int ButtonText=0x7f07001a;
+        public static final int DarkBlue=0x7f070016;
+        public static final int DarkGreen=0x7f070013;
+        public static final int DarkGrey=0x7f070003;
+        public static final int DarkOliveGreen=0x7f07000b;
+        public static final int DarkSlateBlue=0x7f07000d;
+        public static final int DarkTransparent=0x7f07001d;
+        public static final int Green=0x7f070012;
+        public static final int Grey=0x7f070019;
+        public static final int Indigo=0x7f070006;
+        public static final int Ivory=0x7f07000a;
+        public static final int LightGrey=0x7f070004;
+        public static final int LightPurple=0x7f070008;
+        public static final int MediumBlue=0x7f070015;
+        public static final int MediumTurquoise=0x7f07000c;
+        public static final int MidPurple=0x7f070007;
+        public static final int RoyalBlue=0x7f07000f;
+        public static final int SemiTransparent=0x7f07001c;
+        public static final int SteelBlue=0x7f07000e;
+        public static final int Teal=0x7f070011;
+        public static final int Transparent=0x7f07001b;
+        public static final int Turquoise=0x7f070010;
+        public static final int VeryLightGrey=0x7f070005;
+        public static final int VeryLightPurple=0x7f070009;
+        public static final int White=0x7f070018;
+        public static final int abc_search_url_text_holo=0x7f07001e;
         public static final int abc_search_url_text_normal=0x7f070000;
         public static final int abc_search_url_text_pressed=0x7f070002;
         public static final int abc_search_url_text_selected=0x7f070001;
@@ -1092,7 +1119,6 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050024;
-        public static final int action_settings=0x7f05003f;
         public static final int activity_chooser_view_content=0x7f050025;
         public static final int always=0x7f05000b;
         public static final int beginning=0x7f050011;
@@ -1118,7 +1144,7 @@ containing a value of this type.
         public static final int none=0x7f050010;
         public static final int normal=0x7f050000;
         public static final int pager=0x7f05003c;
-        public static final int picture=0x7f05003e;
+        public static final int picture=0x7f05003d;
         public static final int progress_circular=0x7f050018;
         public static final int progress_horizontal=0x7f050019;
         public static final int radio=0x7f05002f;
@@ -1132,7 +1158,6 @@ containing a value of this type.
         public static final int search_plate=0x7f050036;
         public static final int search_src_text=0x7f050037;
         public static final int search_voice_btn=0x7f05003b;
-        public static final int section_label=0x7f05003d;
         public static final int shortcut=0x7f05002e;
         public static final int showCustom=0x7f050007;
         public static final int showHome=0x7f050004;
